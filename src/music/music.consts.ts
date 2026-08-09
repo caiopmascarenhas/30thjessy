@@ -1,4 +1,4 @@
-export const MUSIC_SOURCE = '/audio/golden-hour-instrumental.mp3'
+export const MUSIC_SOURCE = `${import.meta.env.BASE_URL}audio/golden-hour-instrumental.mp3`
 export const MUSIC_FFT_SIZE = 512
 
 // Mantém os ataques perceptíveis; a suavização visual é feita por frame nos componentes.
