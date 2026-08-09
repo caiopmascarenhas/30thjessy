@@ -1,0 +1,78 @@
+import type { CSSProperties } from 'react'
+
+import { theme } from '~/theme'
+
+export const styles = {
+  Bars: {
+    alignItems: 'flex-end',
+    display: 'flex',
+    gap: 2,
+    height: 16,
+    justifyContent: 'center',
+    width: 18,
+  } satisfies CSSProperties,
+  Control: {
+    alignItems: 'center',
+    background: 'rgba(10,9,7,0.82)',
+    border: `1px solid ${theme.colors.line}`,
+    borderRadius: theme.radii.pill,
+    boxShadow: '0 14px 44px rgba(0,0,0,0.38), 0 0 32px rgba(215,180,96,0.08)',
+    color: theme.colors.champagne,
+    cursor: 'pointer',
+    display: 'flex',
+    gap: 10,
+    minHeight: 48,
+    outline: 'none',
+    padding: '8px 14px 8px 10px',
+  } satisfies CSSProperties,
+  Error: {
+    bottom: 'calc(100% + 8px)',
+    color: theme.colors.mutedStrong,
+    fontFamily: theme.fonts.body,
+    fontSize: 10,
+    lineHeight: 1.35,
+    maxWidth: 190,
+    position: 'absolute',
+    right: 0,
+    textAlign: 'right',
+  } satisfies CSSProperties,
+  IconCircle: {
+    alignItems: 'center',
+    background: 'rgba(215,180,96,0.1)',
+    border: '1px solid rgba(215,180,96,0.2)',
+    borderRadius: theme.radii.circle,
+    display: 'flex',
+    height: 30,
+    justifyContent: 'center',
+    width: 30,
+  } satisfies CSSProperties,
+  Label: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 1,
+    minWidth: 0,
+  } satisfies CSSProperties,
+  Root: {
+    bottom: 'max(18px, env(safe-area-inset-bottom))',
+    position: 'fixed',
+    right: 'max(18px, env(safe-area-inset-right))',
+    zIndex: 50,
+  } satisfies CSSProperties,
+  Track: {
+    color: theme.colors.muted,
+    fontFamily: theme.fonts.body,
+    fontSize: 9,
+    fontWeight: 700,
+    letterSpacing: '0.12em',
+    lineHeight: 1.2,
+    textTransform: 'uppercase',
+  } satisfies CSSProperties,
+  Title: {
+    color: theme.colors.champagne,
+    fontFamily: theme.fonts.body,
+    fontSize: 11,
+    fontWeight: 600,
+    lineHeight: 1.2,
+    whiteSpace: 'nowrap',
+  } satisfies CSSProperties,
+} as const
