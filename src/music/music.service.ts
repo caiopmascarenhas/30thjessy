@@ -342,17 +342,22 @@ class MusicService {
         throw new Error('Player de música indisponível.')
       }
 
-      if (this.audioContext.state === 'suspended') {
-        await this.audioContext.resume()
-      }
+      // Safari/iOS exige que as duas operações protegidas por gesto sejam iniciadas
+      // na mesma pilha de execução. Não pode haver await entre resume() e play().
+      const playPromise = this.audio.play()
+      const contextPromise =
+        this.audioContext.state === 'suspended'
+          ? this.audioContext.resume()
+          : Promise.resolve()
 
-      await this.audio.play()
+      await Promise.all([playPromise, contextPromise])
+
       this.rebaseVisualClock()
       this.setState({ error: '', isPlaying: true, isReady: true })
     } catch (error) {
       const message =
         error instanceof DOMException && error.name === 'NotAllowedError'
-          ? 'Toque no botão de música para começar.'
+          ? 'Toque na página para continuar a música.'
           : 'Não foi possível iniciar a música.'
 
       this.setState({ error: message, isPlaying: false, isReady: this.state.isReady })
@@ -378,6 +383,7 @@ class MusicService {
     }
 
     const audio = new Audio(MUSIC_SOURCE)
+    audio.autoplay = true
     audio.loop = true
     audio.preload = 'auto'
     audio.setAttribute('playsinline', 'true')
