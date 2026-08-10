@@ -45,7 +45,7 @@ export const styles = {
     display: 'grid',
     gap: 'clamp(28px, 7vw, 110px)',
     gridTemplateColumns: 'minmax(0, 1fr) minmax(320px, 560px)',
-    minHeight: 'calc(100dvh - clamp(44px, 8vw, 112px))',
+    minHeight: 'calc(100svh - clamp(44px, 8vw, 112px))',
     width: '100%',
   } satisfies CSSProperties,
   Number: {

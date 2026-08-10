@@ -8,7 +8,7 @@ import { ScreenShell } from '~/components/ScreenShell'
 import { Typography } from '~/components/Typography'
 import { MOMENTS, TOTAL_MOMENTS } from '~/config'
 import { resolveMessage } from '~/content'
-import { useEnterAnimation, useNow, useViewport } from '~/hooks'
+import { useEnterAnimation, useReleaseClock, useViewport } from '~/hooks'
 import { theme } from '~/theme'
 import { isMomentUnlocked } from '~/utils'
 
@@ -21,7 +21,7 @@ export const MomentScreen = ({
   onMarkRead,
   onNavigate,
 }: MomentScreenProps) => {
-  const now = useNow()
+  const now = useReleaseClock(MOMENTS)
   const viewport = useViewport()
   const artworkRef = useEnterAnimation<HTMLDivElement>({ duration: 900, distance: 14 })
   const textRef = useEnterAnimation<HTMLDivElement>({ delay: 130, duration: 920, distance: 24 })
@@ -133,7 +133,7 @@ export const MomentScreen = ({
                 <Typography color={theme.colors.muted} variant="caption">
                   PRÓXIMO CAPÍTULO EM
                 </Typography>
-                <Countdown compact now={now} targetIso={nextMoment.releaseAt} />
+                <Countdown compact targetIso={nextMoment.releaseAt} />
               </div>
             ) : null}
           </div>

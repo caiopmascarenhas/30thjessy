@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react'
 export const styles = {
   Canvas: {
     contain: 'strict',
-    height: '100dvh',
+    height: '100svh',
     inset: 0,
     pointerEvents: 'none',
     position: 'fixed',

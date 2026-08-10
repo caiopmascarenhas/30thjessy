@@ -1,9 +1,11 @@
+import { useNow } from '~/hooks'
 import { getCountdown } from '~/utils'
 
 import { styles } from './Countdown.styles'
 import type { CountdownProps } from './Countdown.types'
 
-export const Countdown = ({ compact = false, now, targetIso }: CountdownProps) => {
+export const Countdown = ({ compact = false, targetIso }: CountdownProps) => {
+  const now = useNow()
   const countdown = getCountdown(targetIso, now)
   const values = [
     { label: 'dias', value: countdown.days },

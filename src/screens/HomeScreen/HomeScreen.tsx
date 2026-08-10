@@ -4,7 +4,7 @@ import { ProgressConstellation } from '~/components/ProgressConstellation'
 import { ScreenShell } from '~/components/ScreenShell'
 import { Typography } from '~/components/Typography'
 import { BIRTHDAY_CONFIG, MOMENTS, TOTAL_MOMENTS } from '~/config'
-import { useEnterAnimation, useNow, useViewport } from '~/hooks'
+import { useEnterAnimation, useReleaseClock, useViewport } from '~/hooks'
 import { theme } from '~/theme'
 import { getNextLockedMoment, getUnlockedMoments } from '~/utils'
 
@@ -12,7 +12,7 @@ import { styles } from './HomeScreen.styles'
 import type { HomeScreenProps } from './HomeScreen.types'
 
 export const HomeScreen = ({ onSelectMoment, readMoments }: HomeScreenProps) => {
-  const now = useNow()
+  const now = useReleaseClock(MOMENTS)
   const viewport = useViewport()
   const introRef = useEnterAnimation<HTMLDivElement>({ duration: 850 })
   const mapRef = useEnterAnimation<HTMLDivElement>({ delay: 120, duration: 850 })
@@ -130,7 +130,7 @@ export const HomeScreen = ({ onSelectMoment, readMoments }: HomeScreenProps) => 
                 <Typography as="h3" variant="h2">
                   {nextMoment.chapter}
                 </Typography>
-                <Countdown compact now={now} targetIso={nextMoment.releaseAt} />
+                <Countdown compact targetIso={nextMoment.releaseAt} />
                 <Typography color={theme.colors.muted} variant="caption">
                   O último capítulo, o número 30, só abre à meia-noite do dia 14.
                 </Typography>

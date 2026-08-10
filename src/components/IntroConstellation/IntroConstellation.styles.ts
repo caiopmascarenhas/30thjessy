@@ -14,7 +14,7 @@ export const styles = {
     alignItems: 'center',
     background: theme.colors.background,
     display: 'flex',
-    height: '100dvh',
+    height: '100svh',
     inset: 0,
     justifyContent: 'center',
     overflow: 'hidden',

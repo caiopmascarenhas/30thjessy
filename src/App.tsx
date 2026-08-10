@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { IntroConstellation } from '~/components/IntroConstellation'
 import { MusicPlayer } from '~/components/MusicPlayer'
 import { MOMENTS, BIRTHDAY_CONFIG } from '~/config'
-import { useNow } from '~/hooks'
+import { useReleaseClock } from '~/hooks'
 import { musicService } from '~/music'
 import { navigateToHome, navigateToMoment, useHashRoute } from '~/navigation'
 import { AccessScreen } from '~/screens/AccessScreen'
@@ -49,15 +49,53 @@ const App = () => {
     readNumberSet(BIRTHDAY_CONFIG.readStorageKey),
   )
   const route = useHashRoute()
-  const now = useNow()
+  const authenticatedOnLoad = useRef(authenticated)
+  const now = useReleaseClock(MOMENTS)
 
   useEffect(() => {
-    if (!authenticated) {
+    if (!authenticatedOnLoad.current) {
       return
     }
 
-    void musicService.play().catch(() => undefined)
-  }, [authenticated])
+    let disposed = false
+
+    const cleanup = () => {
+      window.removeEventListener('pointerdown', handleInteraction, true)
+      window.removeEventListener('keydown', handleInteraction, true)
+    }
+
+    const tryResumeMusic = async () => {
+      try {
+        await musicService.play()
+
+        if (!disposed) {
+          cleanup()
+        }
+      } catch {
+        // Autoplay pode ser bloqueado após reload. Nesse caso, mantemos
+        // os listeners para retomar na primeira interação real do usuário.
+      }
+    }
+
+    const handleInteraction = (event: Event) => {
+      const target = event.target
+
+      if (target instanceof Element && target.closest('[data-music-control="true"]')) {
+        return
+      }
+
+      void tryResumeMusic()
+    }
+
+    window.addEventListener('pointerdown', handleInteraction, { capture: true, passive: true })
+    window.addEventListener('keydown', handleInteraction, { capture: true })
+    void tryResumeMusic()
+
+    return () => {
+      disposed = true
+      cleanup()
+    }
+  }, [])
 
   const handleAuthenticated = useCallback(() => {
     writeSessionFlag(BIRTHDAY_CONFIG.authStorageKey, true)

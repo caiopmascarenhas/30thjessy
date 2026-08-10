@@ -92,6 +92,7 @@ export const MusicPlayer = ({ compact = false }: MusicPlayerProps) => {
       {error ? <span style={styles.Error}>{error}</span> : null}
       <button
         aria-label={isPlaying ? 'Pausar música' : 'Tocar música'}
+        data-music-control="true"
         disabled={busy}
         onClick={() => void handleToggle()}
         style={{ ...styles.Control, opacity: busy ? 0.72 : 1 }}

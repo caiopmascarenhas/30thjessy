@@ -21,7 +21,10 @@ export const styles = {
   Root: {
     alignItems: 'center',
     display: 'flex',
+    flexWrap: 'nowrap',
     gap: 'clamp(8px, 2vw, 18px)',
+    minHeight: 36,
+    whiteSpace: 'nowrap',
   } satisfies CSSProperties,
   Separator: {
     color: theme.colors.goldMuted,
@@ -34,6 +37,7 @@ export const styles = {
     color: theme.colors.champagne,
     fontFamily: theme.fonts.mono,
     fontSize: 18,
+    fontVariantNumeric: 'tabular-nums',
     fontWeight: 500,
     letterSpacing: '-0.03em',
   } satisfies CSSProperties,

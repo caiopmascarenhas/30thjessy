@@ -6,7 +6,7 @@ export const styles = {
   Content: {
     boxSizing: 'border-box',
     margin: '0 auto',
-    minHeight: '100dvh',
+    minHeight: '100svh',
     padding: 'clamp(22px, 4vw, 56px)',
     position: 'relative',
     width: '100%',
@@ -15,7 +15,7 @@ export const styles = {
   Root: {
     background: theme.colors.background,
     color: theme.colors.text,
-    minHeight: '100dvh',
+    minHeight: '100svh',
     overflow: 'hidden',
     position: 'relative',
     width: '100%',
