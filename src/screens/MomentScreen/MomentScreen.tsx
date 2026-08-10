@@ -65,6 +65,7 @@ export const MomentScreen = ({
       <div
         style={{
           ...styles.Layout,
+          alignItems: isNarrow ? 'start' : styles.Layout.alignItems,
           gridTemplateColumns: isNarrow ? '1fr' : styles.Layout.gridTemplateColumns,
         }}
       >
@@ -72,7 +73,15 @@ export const MomentScreen = ({
           <MomentArtwork momentId={moment.id} visual={moment.visual} />
         </div>
 
-        <article ref={textRef} style={styles.ContentCard}>
+        <article
+          ref={textRef}
+          style={{
+            ...styles.ContentCard,
+            justifyContent: isNarrow ? 'flex-start' : styles.ContentCard.justifyContent,
+            minHeight: isNarrow ? 'auto' : styles.ContentCard.minHeight,
+            padding: isNarrow ? '0' : styles.ContentCard.padding,
+          }}
+        >
           <div style={{ display: 'flex', flexDirection: 'column', gap: 17 }}>
             <Typography color={theme.colors.goldBright} variant="eyebrow">
               capítulo {String(moment.id).padStart(2, '0')} · {moment.chapter}
